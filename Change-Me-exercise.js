@@ -19,7 +19,7 @@ function changeMe(arr) {
           gender: arr[i][j+2],
           age: 2019 - arr[i][j+3]
         };
-        if (!arr[i][j+3]){
+        if (!arr[i][j+3] || arr[i][j+3] > 2019){
           objMe.age = "Invalid Birth Year";
         }
         console.log(arrNamaLengkap);

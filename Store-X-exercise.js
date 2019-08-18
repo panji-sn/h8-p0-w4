@@ -15,22 +15,22 @@ function countProfit(shoppers) {
       var barObj = {};
       barObj.product = listBarang[i][0];
       barObj.pembeli = [];
-      var jmlBrg  = 0;
+      var jmlBrg  = listBarang[i][2];
       for(let j = 0; j < shoppers.length; j++){
-        if(shoppers[j].product === barObj.product && shoppers[j].amount <= listBarang[i][2]){
-          jmlBrg += shoppers[j].amount;
+        if(shoppers[j].product === barObj.product && jmlBrg >= shoppers[j].amount){
+          jmlBrg -= shoppers[j].amount;
           barObj.pembeli.push(shoppers[j].name);
         }    
       }
       
-      if(jmlBrg <= listBarang[i][2]){
-        barObj.leftOver = listBarang[i][2] - jmlBrg;
+      if(jmlBrg >= 0){
+        barObj.leftOver = jmlBrg;
         if(barObj.product === listBarang[0][0]){
-          barObj.totalProfit = jmlBrg * listBarang[0][1];
+          barObj.totalProfit = (listBarang[0][2]-jmlBrg) * listBarang[0][1];
         } else if(barObj.product === listBarang[1][0]){
-          barObj.totalProfit = jmlBrg * listBarang[1][1];
+          barObj.totalProfit = (listBarang[1][2]-jmlBrg)* listBarang[1][1];
         } else { 
-          barObj.totalProfit = jmlBrg * listBarang[2][1];
+          barObj.totalProfit = (listBarang[2][2]-jmlBrg)* listBarang[2][1];
         } 
       } else {
         barObj.leftOver = listBarang[i][2];
@@ -55,7 +55,7 @@ console.log(countProfit([{name: 'Windi', product: 'Sepatu Stacattu', amount: 2},
   //   leftOver: 1,
   //   totalProfit: 0 } ]
   
-console.log(countProfit([{name: 'Windi', product: 'Sepatu Stacattu', amount: 8}, {name: 'Vanessa', product: 'Sepatu Stacattu', amount: 11}, {name: 'Rani', product: 'Sweater Uniklooh', amount: 1}, {name: 'Devi', product: 'Baju Zoro', amount: 1}, {name: 'Lisa', product: 'Baju Zoro', amount: 1}]));
+console.log(countProfit([{name: 'Windi', product: 'Sepatu Stacattu', amount: 8}, {name: 'Vanessa', product: 'Sepatu Stacattu', amount: 10}, {name: 'Rani', product: 'Sweater Uniklooh', amount: 1}, {name: 'Devi', product: 'Baju Zoro', amount: 1}, {name: 'Lisa', product: 'Baju Zoro', amount: 1}]));
   // [ { product: 'Sepatu Stacattu',
   //     shoppers: [ 'Windi' ],
   //     leftOver: 2,
